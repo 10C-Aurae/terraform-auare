@@ -11,35 +11,6 @@
 Infrastructure-as-Code (IaC) skeleton for a cloud-native event platform deployed on AWS.  
 Designed for low-budget production environments using cost-optimized AWS services.
 
-## Architecture
-
-```
-Internet
-   │
-   ▼
-Cloudflare (CDN + DDoS)
-   ├── aurae.live   ──► Cloudflare Pages (PWA / React frontend)
-   └── api.domain   ──► Nginx EC2 Spot (reverse proxy)
-                              │
-                    ┌─────────┴─────────┐
-                    ▼                   ▼
-             ECS Fargate Spot     ECS Fargate Spot
-             (backend API)        (AI microservice)
-                    │                   │
-                    └─────────┬─────────┘
-                              ▼
-                       Cloud Map DNS
-                       (app.local)
-                              │
-                    ┌─────────┴─────────┐
-                    ▼                   ▼
-             MongoDB Atlas         S3 (media)
-             (SaaS — external)     (assets públicos)
-
-CI/CD: Jenkins EC2 Spot + ECR (Docker registry)
-Monitoring: CloudWatch Alarms + SNS + Dashboard
-```
-
 ## Cost Optimization Decisions
 
 | Service removed | Replacement | Savings |
