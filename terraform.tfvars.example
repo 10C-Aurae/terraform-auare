@@ -1,0 +1,56 @@
+# ─────────────────────────────────────────────
+#  terraform.tfvars.example
+#
+#  ⚠  Este archivo contiene SOLO valores de ejemplo.
+#     Copia a terraform.tfvars con tus valores reales.
+#     NUNCA subas terraform.tfvars al repositorio.
+# ─────────────────────────────────────────────
+
+aws_region  = "us-east-1"
+environment = "prod"
+project     = "myapp"
+
+# ── Networking ─────────────────────────────────
+vpc_cidr            = "10.0.0.0/16"
+availability_zones  = ["us-east-1a", "us-east-1b"]
+public_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
+
+# ── Dominio ────────────────────────────────────
+domain_name = "your-app.example"
+
+# ── Cloudflare ────────────────────────────────
+cloudflare_api_token  = "YOUR_CLOUDFLARE_API_TOKEN"
+cloudflare_account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+cloudflare_zone_id    = "YOUR_CLOUDFLARE_ZONE_ID"
+
+# ── Jenkins + Nginx ───────────────────────────
+key_pair_name         = "app-keypair"
+jenkins_instance_type = "t3.medium"
+jenkins_volume_size   = 30
+jenkins_allowed_cidr  = "YOUR_PUBLIC_IP/32"
+
+# ── ECS Fargate Spot ──────────────────────────
+backend_cpu    = 256
+backend_memory = 512
+aiservice_cpu    = 512
+aiservice_memory = 1024
+backend_desired_count   = 1
+aiservice_desired_count = 1
+
+# ── GitHub OIDC ───────────────────────────────
+github_org = "YOUR_GITHUB_ORG"
+
+# ── Alertas ────────────────────────────────────
+alert_email = "your-email@example.com"
+
+# ─────────────────────────────────────────────
+#  FLUJO POST-APPLY:
+#
+#  1. Copiar nginx_public_ip del output y crear
+#     registro A en Cloudflare DNS.
+#  2. Subir variables de entorno al bucket S3:
+#       aws s3 cp backend.env   s3://<config_bucket>/backend.env
+#       aws s3 cp aiservice.env s3://<config_bucket>/aiservice.env
+#  3. Push a main → Jenkins construye y despliega
+#     las imágenes a ECR y actualiza los servicios ECS.
+# ─────────────────────────────────────────────

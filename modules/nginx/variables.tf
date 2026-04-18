@@ -1,0 +1,11 @@
+variable "project"                { type = string }
+variable "environment"            { type = string }
+variable "vpc_id"                 { type = string }
+variable "public_subnet_id"       { type = string }
+variable "availability_zone"      { type = string }
+variable "nginx_sg_id"            { type = string }
+variable "nginx_instance_profile" { type = string }
+variable "key_pair_name"          { type = string }
+variable "domain_name"            { type = string }
+variable "aws_region"             { type = string }
+variable "cf_zone_id"             { type = string }

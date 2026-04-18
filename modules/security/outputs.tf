@@ -1,0 +1,11 @@
+output "nginx_sg_id"                    { value = aws_security_group.nginx.id }
+output "ecs_sg_id"                      { value = aws_security_group.ecs.id }
+output "jenkins_sg_id"                  { value = aws_security_group.jenkins.id }
+output "ecs_task_role_arn"              { value = aws_iam_role.ecs_task.arn }
+output "ecs_task_role_name"             { value = aws_iam_role.ecs_task.name }
+output "ecs_execution_role_arn"         { value = aws_iam_role.ecs_execution.arn }
+output "jenkins_role_arn"               { value = aws_iam_role.jenkins.arn }
+output "jenkins_instance_profile_name"  { value = aws_iam_instance_profile.jenkins.name }
+output "nginx_role_arn"                 { value = aws_iam_role.nginx.arn }
+output "nginx_instance_profile_name"    { value = aws_iam_instance_profile.nginx.name }
+output "github_actions_role_arn"        { value = aws_iam_role.github_actions_deploy.arn }
